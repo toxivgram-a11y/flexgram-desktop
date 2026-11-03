@@ -1119,7 +1119,7 @@ if buildQt5:
     cd qt_5_15_2
 win:
     SET PATH=%ROOT_DIR%\\ThirdParty\\msys64\\usr\\bin;%PATH%
-    perl init-repository --module-subset=qtbase,qtimageformats,qtsvg
+    git submodule update --init qtbase qtimageformats qtsvg
     git checkout v5.15.2
     git submodule update qtbase qtimageformats qtsvg
 depends:patches/qtbase_5_15_2/*.patch
