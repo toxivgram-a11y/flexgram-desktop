@@ -34,10 +34,15 @@ jobs:
           submodules: recursive
           path: src
 
+      - uses: actions/setup-python@v5
+        name: Set up Python 3.9.
+        with:
+          python-version: '3.9'
+
       - name: Choco installs.
         run: |
           choco install --no-progress -y nasm strawberryperl yasm jom ninja
-          py -m pip install pywin32
+          python -m pip install pywin32
 
       - name: Install msys64.
         run: |
@@ -65,7 +70,7 @@ jobs:
           path: |
             ${{ github.workspace }}\Libraries
             ${{ github.workspace }}\Libraries64
-          key: ${{ runner.OS }}-libs-k149-v3
+          key: ${{ runner.OS }}-libs-k149-v4
 
       - name: Libraries.
         env:
