@@ -634,14 +634,15 @@ win:
     SET CHERE_INVOKING=enabled_from_arguments
     SET MSYS2_PATH_TYPE=inherit
 
+    SET "TARGET="
     if "%X8664%" equ "x64" (
-        SET "TARGET=x86_64-win64-vs17"
+        SET "TOOLCHAIN=x86_64-win64-vs17"
     ) else (
-        SET "TARGET=x86-win32-vs17"
+        SET "TOOLCHAIN=x86-win32-vs17"
     )
 
 depends:patches/build_libvpx_win.sh
-    bash --login ../patches/build_libvpx_win.sh
+    bash --login ../../src/Telegram/build/flexgram/build_libvpx_win.sh
 
     SET PATH=%PATH_BACKUP_%
 mac:
