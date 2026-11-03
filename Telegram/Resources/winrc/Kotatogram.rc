@@ -54,11 +54,11 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "Kotatogram"
-            VALUE "FileDescription", "Kotatogram Desktop"
+            VALUE "CompanyName", "FlexGram"
+            VALUE "FileDescription", "FlexGram Desktop"
             VALUE "FileVersion", "1.4.9.0"
             VALUE "LegalCopyright", "Copyright (C) 2019-2022"
-            VALUE "ProductName", "Kotatogram Desktop"
+            VALUE "ProductName", "FlexGram Desktop"
             VALUE "ProductVersion", "1.4.9.0"
         END
     END

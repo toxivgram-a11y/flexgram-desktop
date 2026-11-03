@@ -1392,7 +1392,7 @@ set(bundle_identifier "io.github.kotatogram")
 if (LINUX AND DESKTOP_APP_USE_PACKAGED)
     set(output_name "kotatogram-desktop")
 else()
-    set(output_name "Kotatogram")
+    set(output_name "FlexGram")
 endif()
 
 if (build_macstore)
@@ -1442,13 +1442,13 @@ target_compile_definitions(Telegram
 PRIVATE
     TDESKTOP_API_ID=${TDESKTOP_API_ID}
     TDESKTOP_API_HASH=${TDESKTOP_API_HASH}
-    G_LOG_DOMAIN="Kotatogram"
+    G_LOG_DOMAIN="FlexGram"
 )
 
 if (APPLE
     OR "${CMAKE_GENERATOR}" STREQUAL "Ninja Multi-Config"
     OR NOT CMAKE_EXECUTABLE_SUFFIX STREQUAL ""
-    OR NOT "${output_name}" STREQUAL "Kotatogram")
+    OR NOT "${output_name}" STREQUAL "FlexGram")
     set(output_folder ${CMAKE_BINARY_DIR})
 else()
     set(output_folder ${CMAKE_BINARY_DIR}/bin)

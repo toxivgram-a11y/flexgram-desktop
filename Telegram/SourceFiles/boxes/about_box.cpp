@@ -84,7 +84,7 @@ AboutBox::AboutBox(QWidget *parent)
 }
 
 void AboutBox::prepare() {
-	setTitle(rpl::single(qsl("Kotatogram Desktop")));
+	setTitle(rpl::single(qsl("FlexGram Desktop")));
 
 	addButton(tr::lng_close(), [this] { closeBox(); });
 

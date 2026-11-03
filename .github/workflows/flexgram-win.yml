@@ -70,14 +70,12 @@ jobs:
           GYP_MSVS_OVERRIDE_PATH: 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\'
           GYP_MSVS_VERSION: 2022
         run: |
-          C:
-          cd %TBUILD%
+          cd /d %TBUILD%
           Telegram\build\prepare\win.bat skip-release silent
 
       - name: Free up some disk space.
         run: |
-          C:
-          cd %TBUILD%
+          cd /d %TBUILD%
           del /S Libraries\*.pdb
           del /S Libraries\*.pch
           del /S Libraries\*.obj
@@ -87,8 +85,7 @@ jobs:
 
       - name: FlexGram Desktop build.
         run: |
-          C:
-          cd %TBUILD%\Telegram
+          cd /d %TBUILD%\Telegram
 
           call configure.bat x64 ^
           -D TDESKTOP_API_ID=3893395 ^
@@ -103,11 +100,11 @@ jobs:
 
       - name: Package.
         run: |
-          C:
+          cd /d %TBUILD%
           mkdir artifact\FlexGram
-          copy %TBUILD%\out64\Release\Kotatogram.exe artifact\FlexGram\FlexGram.exe
+          copy out64\Release\FlexGram.exe artifact\FlexGram\FlexGram.exe
           %TBUILD%\Libraries64\Qt-5.15.2\bin\windeployqt.exe --release --no-translations --no-compiler-runtime --no-angle --no-opengl-sw artifact\FlexGram\FlexGram.exe
-          copy %TBUILD%\Libraries64\local\bin\*.dll artifact\FlexGram\ 2>nul
+          copy Libraries64\local\bin\*.dll artifact\FlexGram\ 2>nul
           dir artifact\FlexGram
           powershell -Command "Compress-Archive -Path 'artifact\FlexGram\*' -DestinationPath 'artifact\FlexGram-Windows-x64.zip' -Force"
 
