@@ -18,13 +18,9 @@ jobs:
     steps:
       - name: Prepare directories.
         run: |
-          mkdir %userprofile%\TBuild\Libraries
-          mkdir %userprofile%\TBuild\Libraries64
-          echo TBUILD=%userprofile%\TBuild>>%GITHUB_ENV%
-
-      - name: Get repository name.
-        shell: bash
-        run: echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+          mkdir Libraries
+          mkdir Libraries64
+          echo TBUILD=%GITHUB_WORKSPACE%>>%GITHUB_ENV%
 
       - uses: ilammy/msvc-dev-cmd@v1
         name: Native Tools Command Prompt.
@@ -35,7 +31,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          path: ${{ env.TBUILD }}\${{ env.REPO_NAME }}
 
       - name: Choco installs.
         run: |
@@ -44,8 +39,8 @@ jobs:
 
       - name: Install msys64.
         run: |
-          mkdir %TBUILD%\ThirdParty
-          xcopy /E /I C:\msys64 %TBUILD%\ThirdParty\msys64
+          mkdir ThirdParty
+          xcopy /E /I C:\msys64 ThirdParty\msys64
 
       - name: Set up environment paths.
         shell: bash
@@ -66,9 +61,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            ${{ env.TBUILD }}\Libraries
-            ${{ env.TBUILD }}\Libraries64
-          key: ${{ runner.OS }}-libs-k149-v1
+            ${{ github.workspace }}\Libraries
+            ${{ github.workspace }}\Libraries64
+          key: ${{ runner.OS }}-libs-k149-v2
 
       - name: Libraries.
         env:
@@ -77,7 +72,7 @@ jobs:
         run: |
           C:
           cd %TBUILD%
-          %REPO_NAME%/Telegram/build/prepare/win.bat skip-release silent
+          Telegram\build\prepare\win.bat skip-release silent
 
       - name: Free up some disk space.
         run: |
@@ -93,7 +88,7 @@ jobs:
       - name: FlexGram Desktop build.
         run: |
           C:
-          cd %TBUILD%\%REPO_NAME%\Telegram
+          cd %TBUILD%\Telegram
 
           call configure.bat x64 ^
           -D TDESKTOP_API_ID=3893395 ^
@@ -110,7 +105,7 @@ jobs:
         run: |
           C:
           mkdir artifact\FlexGram
-          copy %TBUILD%\%REPO_NAME%\out64\Release\Kotatogram.exe artifact\FlexGram\FlexGram.exe
+          copy %TBUILD%\out64\Release\Kotatogram.exe artifact\FlexGram\FlexGram.exe
           %TBUILD%\Libraries64\Qt-5.15.2\bin\windeployqt.exe --release --no-translations --no-compiler-runtime --no-angle --no-opengl-sw artifact\FlexGram\FlexGram.exe
           copy %TBUILD%\Libraries64\local\bin\*.dll artifact\FlexGram\ 2>nul
           dir artifact\FlexGram
