@@ -1117,6 +1117,8 @@ if buildQt5:
     stage('qt_5_15_2', """
     git clone https://code.qt.io/qt/qt5.git qt_5_15_2
     cd qt_5_15_2
+win:
+    SET PATH=%ROOT_DIR%\\ThirdParty\\msys64\\usr\\bin;%PATH%
     perl init-repository --module-subset=qtbase,qtimageformats,qtsvg
     git checkout v5.15.2
     git submodule update qtbase qtimageformats qtsvg
