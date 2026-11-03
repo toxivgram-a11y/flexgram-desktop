@@ -416,7 +416,6 @@ win:
     git checkout d6c5dd51dc
 depends:patches/gyp.diff
     git apply $LIBS_DIR/patches/gyp.diff
-    python -c "import pathlib; p=pathlib.Path('pylib/gyp/common.py'); s=p.read_text(); s=s.replace('collections.MutableSet','collections.abc.MutableSet'); p.write_text(s)"
 mac:
     python3 -m pip install --ignore-installed git+https://github.com/desktop-app/gyp-next@main
     mkdir gyp
